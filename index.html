@@ -1,66 +1,31 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset='utf-8'>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-  <title>thisgeek/bounce @ GitHub</title>
-
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #afcb87;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: black; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: black; }
-    h3 { text-align: center; color: black; }
-    a { color: black; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
+    <title>Bounce</title>
+    <link href='http://fonts.googleapis.com/css?family=Della+Respira' rel='stylesheet' type='text/css' />
+    <style type="text/css">
+        body {
+            background: black;
+            overflow: hidden;
+            margin: 0;
+            color: white;
+        }
+        h1 {
+            font-family: "Della Respira", serif;
+            text-align: center;
+            font-size: 4em;
+            background: transparent;
+            position: absolute;
+            width: 100%;
+            display: none;
+        }
+    </style>
 </head>
-
 <body>
-  <a href="http://github.com/thisgeek/bounce"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-
-  <div id="container">
-
-    <div class="download">
-      <a href="http://github.com/thisgeek/bounce/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/thisgeek/bounce/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="http://github.com/thisgeek/bounce">bounce</a>
-      <span class="small">by <a href="http://github.com/thisgeek">thisgeek</a></span></h1>
-
-    <div class="description">
-      My animation procrastination
-    </div>
-
-    <p>Open it up in your browser and watch the balls bounce!</p>
-
-    <p>Get it with <a href="http://git-scm.com">Git</a>:
-      <pre>$ git clone git://github.com/thisgeek/bounce</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/thisgeek/bounce">thisgeek/bounce</a>
-    </div>
-
-  </div>
-
-  
+    <h1>Bounce</h1>
+    <a href="http://github.com/thisgeek/bounce"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+    <script data-main="bounce.js" src="vendor/require.js"></script>
 </body>
 </html>

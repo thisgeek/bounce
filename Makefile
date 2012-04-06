@@ -3,7 +3,7 @@ all: requirejs
 	@@date
 
 requirejs:
-	@@wget http://requirejs.org/docs/release/0.24.0/comments/require.js \
+	@@wget http://requirejs.org/docs/release/1.0.7/minified/require.js \
 		-P vendor
 
 clean:

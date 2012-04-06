@@ -1,14 +1,7 @@
-require(['desk', 'particle'], function (desk, particle) {
+require(['desk', 'particle', 'loop'], function (desk, particle, loop) {
     (function(element) {
         element.style.opacity = 0;
         element.style.display = 'block';
-        var loop = function (callback, delay) {
-            setTimeout(function () {
-                if (callback()) {
-                    loop(callback, delay);
-                }
-            }, delay);
-        };
         loop(function () {
             var opacity = parseFloat(element.style.opacity),
                 notDone = opacity < 1;

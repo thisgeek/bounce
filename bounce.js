@@ -19,6 +19,9 @@ require(['desk', 'particle'], function (desk, particle) {
                         var opacity = parseFloat(element.style.opacity),
                             notDone = opacity > 0;
                         element.style.opacity = opacity - 0.008;
+                        if (!notDone) {
+                            element.style.display = 'none';
+                        }
                         return notDone;
                     }, 1000 / 40);
                 }, 5000);

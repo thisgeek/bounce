@@ -1,6 +1,5 @@
 all: requirejs q
-	@@echo "Build complete:"
-	@@date
+	@@echo "Build complete:" `date`
 
 requirejs:
 	@@wget http://requirejs.org/docs/release/1.0.7/minified/require.js \

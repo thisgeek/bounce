@@ -2,14 +2,14 @@ define(function () {
     var particle = {
         render: function (ctx) {
             ctx.beginPath();
-            ctx.arc(this.x, this.y, 10, 0, Math.PI * 2, true);
+            ctx.arc(this.x, this.y, this.d, 0, Math.PI * 2, true);
             ctx.stroke();
             return this;
         }
     };
 
     return {
-        create: function (x, y, vx, vy) {
+        create: function (x, y, vx, vy, d) {
             return Object.create(particle, {
                 x: {
                     value: x,
@@ -25,6 +25,10 @@ define(function () {
                 },
                 vy: {
                     value: vy,
+                    writable: true
+                },
+                d: {
+                    value: d,
                     writable: true
                 }
             });

@@ -23,12 +23,22 @@ require(['desk', 'particle', 'loop'], function (desk, particle, loop) {
         }, 1000 / 40);
     }(document.querySelector('h1')));
 
+    var input = (function() {
+        var input = document.createElement('input');
+        input.type = 'range';
+        input.min = 1;
+        input.max = 100;
+        input.value = 10;
+        document.body.appendChild(input);
+        return input;
+    }());
+
     var ctx = desk.init(window).context();
     var parts = [
-        particle.create(10, 20, 12, 0),
-        particle.create(10, window.innerHeight - 20, 10, 30),
-        particle.create(10, window.innerHeight - 20, 5, 40),
-        particle.create(10, window.innerHeight / 2, 10, 30)
+        particle.create(10, 20, 12, 0, 10),
+        particle.create(10, window.innerHeight - 20, 10, 30, 10),
+        particle.create(10, window.innerHeight - 20, 5, 40, 10),
+        particle.create(10, window.innerHeight / 2, 10, 30, 10)
     ];
 
     var lineargradient = ctx.createLinearGradient(0, 0, 0, window.innerHeight);
@@ -72,7 +82,8 @@ require(['desk', 'particle', 'loop'], function (desk, particle, loop) {
 
     // Generate particles
     setInterval(function () {
-        parts.push(particle.create(10, Math.random() * 400, 12, 0));
-        parts.push(particle.create(10, window.innerHeight - 20, 5, Math.random() * 43));
+        var d = parseInt(input.value, 10);
+        parts.push(particle.create(10, Math.random() * 400, 12, 0, d));
+        parts.push(particle.create(10, window.innerHeight - 20, 5, Math.random() * 43, d));
     }, 1000);
 });

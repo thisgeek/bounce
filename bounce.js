@@ -1,26 +1,31 @@
-require(['desk', 'particle', 'loop'], function (desk, particle, loop) {
+require([
+    'desk',
+    'particle',
+    'loop'
+], function (desk, particle, loop) {
     (function(element) {
+
+        var fade = function(element, increment) {
+            var opacity = parseFloat(element.style.opacity);
+            element.style.opacity = opacity - increment;
+            return opacity;
+        };
         element.style.opacity = 0;
         element.style.display = 'block';
+
         loop(function () {
-            var opacity = parseFloat(element.style.opacity),
-                notDone = opacity < 1;
-            element.style.opacity = opacity + 0.008;
-            if (!notDone) {
-                setTimeout(function () {
-                    loop(function () {
-                        var opacity = parseFloat(element.style.opacity),
-                            notDone = opacity > 0;
-                        element.style.opacity = opacity - 0.008;
-                        if (!notDone) {
-                            element.style.display = 'none';
-                        }
-                        return notDone;
-                    }, 1000 / 40);
-                }, 5000);
-            }
-            return notDone;
-        }, 1000 / 40);
+            return fade(element, -0.008) >= 1;
+        }, 1000 / 40)
+        .delay(5000)
+        .then(function () {
+            loop(function () {
+                return fade(element, 0.008) <= 0;
+            }, 1000 / 40)
+            .then(function () {
+                element.style.display = 'none';
+            });
+        });
+
     }(document.querySelector('h1')));
 
     var input = (function() {

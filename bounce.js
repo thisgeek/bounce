@@ -3,9 +3,9 @@ require([
     'particle',
     'loop'
 ], function (desk, particle, loop) {
-    (function(element) {
+    (function (element) {
 
-        var fade = function(element, increment) {
+        var fade = function (element, increment) {
             var opacity = parseFloat(element.style.opacity);
             element.style.opacity = opacity - increment;
             return opacity;
@@ -22,18 +22,20 @@ require([
                 return fade(element, 0.008) <= 0;
             }, 1000 / 40)
             .then(function () {
+                element.style.opacity = 0;
                 element.style.display = 'none';
             });
         });
 
     }(document.querySelector('h1')));
 
-    var input = (function() {
+    var input = (function () {
         var input = document.createElement('input');
         input.type = 'range';
         input.min = 1;
         input.max = 100;
         input.value = 10;
+        input.step = 1;
         document.body.appendChild(input);
         return input;
     }());
@@ -56,8 +58,8 @@ require([
 
     var move = function (thing) {
         // Drag
-        thing.vy *= 0.994;
         thing.vx *= 0.994;
+        thing.vy *= 0.994;
         // Gravity
         thing.vy -= 0.66;
         // Velocity
@@ -76,7 +78,7 @@ require([
     };
 
     // Animate
-    setInterval(function () {
+    var animation = window.setInterval(function () {
         desk.clear(ctx);
         parts.map(function (part) {
             var p = move(part);
@@ -86,9 +88,50 @@ require([
     }, 1000 / 40);
 
     // Generate particles
-    setInterval(function () {
+    var generator = window.setInterval(function () {
         var d = parseInt(input.value, 10);
         parts.push(particle.create(10, Math.random() * 400, 12, 0, d));
         parts.push(particle.create(10, window.innerHeight - 20, 5, Math.random() * 43, d));
     }, 1000);
+
+    var paused = false;
+    (function () {
+        document.onkeypress = function (e) {
+            var charCode = (typeof e.which == "number") ? e.which : e.keyCode;
+            if (charCode === 32) {
+                if (!paused) {
+                    window.clearInterval(animation);
+                    window.clearInterval(generator);
+                    paused = true;
+                } else {
+                    animation = window.setInterval(function () {
+                        desk.clear(ctx);
+                        parts.map(function (part) {
+                            var p = move(part);
+                            part.render(ctx);
+                            return p;
+                        });
+                    }, 1000 / 40);
+
+                    generator = window.setInterval(function () {
+                        var d = parseInt(input.value, 10);
+                        parts.push(particle.create(10, Math.random() * 400, 12, 0, d));
+                        parts.push(particle.create(10, window.innerHeight - 20, 5, Math.random() * 43, d));
+                    }, 1000);
+                    paused = false;
+                }
+            }
+        };
+    }());
+
+    (function() {
+        input.onchange = function () {
+            if (paused) desk.clear(ctx);
+            parts.map(function (part) {
+                part.d = input.value;
+                part.render(ctx);
+            });
+        };
+    }());
+
 });

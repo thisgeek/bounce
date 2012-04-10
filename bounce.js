@@ -1,15 +1,11 @@
 require([
     'desk',
     'particle',
-    'loop'
-], function (desk, particle, loop) {
-    (function (element) {
+    'loop',
+    'fade'
+], function (desk, particle, loop, fade) {
 
-        var fade = function (element, increment) {
-            var opacity = parseFloat(element.style.opacity);
-            element.style.opacity = opacity - increment;
-            return opacity;
-        };
+    (function (element) {
         element.style.opacity = 0;
         element.style.display = 'block';
 

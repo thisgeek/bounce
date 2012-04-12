@@ -5,34 +5,42 @@ require([
     'fade'
 ], function (desk, particle, loop, fade) {
 
-    (function (element) {
+    var inAndOut = function (element) {
         element.style.opacity = 0;
         element.style.display = 'block';
 
-        loop(function () {
+        return loop(function () {
             return fade(element, -0.008) >= 1;
         }, 1000 / 40)
         .delay(5000)
         .then(function () {
-            loop(function () {
+            return listener();
+        }).then(function () {
+            return loop(function () {
                 return fade(element, 0.008) <= 0;
-            }, 1000 / 40)
-            .then(function () {
-                element.style.opacity = 0;
-                element.style.display = 'none';
-            });
+            }, 1000 / 40);
+        }).then(function () {
+            element.style.opacity = 0;
+            element.style.display = 'none';
         });
 
-    }(document.querySelector('h1')));
+    };
+
+    inAndOut(document.querySelector('h1'))
+    .then(function () {
+        inAndOut(document.querySelector('#instructions .first'));
+    });
 
     var input = (function () {
+        var div = document.createElement('div');
         var input = document.createElement('input');
         input.type = 'range';
         input.min = 1;
         input.max = 100;
         input.value = 10;
         input.step = 1;
-        document.body.appendChild(input);
+        div.appendChild(input);
+        document.body.appendChild(div);
         return input;
     }());
 

@@ -1,9 +1,8 @@
 require([
     'desk',
     'particle',
-    'loop',
     'inAndOut'
-], function (desk, particle, loop, inAndOut) {
+], function (desk, particle, inAndOut) {
 
     inAndOut(document.querySelector('h1'))
     .then(function () {

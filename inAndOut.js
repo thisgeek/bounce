@@ -1,6 +1,7 @@
-require([
+define([
+    'loop',
     'fade'
-], function (fade) {
+], function (loop, fade) {
     return function (element) {
         element.style.opacity = 0;
         element.style.display = 'block';

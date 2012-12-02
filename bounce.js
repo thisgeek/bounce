@@ -38,14 +38,17 @@ require([
     ctx.strokeStyle = lineargradient;
     ctx.lineWidth = 3;
 
-    // Animate
-    var animation = window.setInterval(function () {
+    var frame = function () {
         desk.clear(ctx);
-        parts.forEach(function (part) {
+        parts.map(function (part) {
             part.move();
             part.render(ctx);
+            return part;
         });
-    }, 1000 / 40);
+    };
+
+    // Animate
+    var animation = window.setInterval(frame, 1000 / 40);
 
     // Generate particles
     var generator = window.setInterval(function () {
@@ -64,14 +67,7 @@ require([
                     window.clearInterval(generator);
                     paused = true;
                 } else {
-                    animation = window.setInterval(function () {
-                        desk.clear(ctx);
-                        parts.forEach(function (part) {
-                            part.move();
-                            part.render(ctx);
-                            return p;
-                        });
-                    }, 1000 / 40);
+                    animation = window.setInterval(frame, 1000 / 40);
 
                     generator = window.setInterval(function () {
                         var d = parseInt(input.value, 10);
@@ -90,6 +86,7 @@ require([
             parts.map(function (part) {
                 part.d = input.value;
                 part.render(ctx);
+                return part;
             });
         };
     }());

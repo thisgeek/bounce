@@ -60,34 +60,12 @@ require([
     ctx.strokeStyle = lineargradient;
     ctx.lineWidth = 3;
 
-    var move = function (thing) {
-        // Drag
-        thing.vx *= 0.994;
-        thing.vy *= 0.994;
-        // Gravity
-        thing.vy -= 0.66;
-        // Velocity
-        thing.x += thing.vx;
-        thing.y -= thing.vy;
-        // Ground
-        if (thing.y > window.innerHeight - 20 - 10) {
-            thing.vy = thing.vy * -1;
-        }
-        // Walls
-        if (thing.x > window.innerWidth - 20 || thing.x < 10) {
-            thing.vx = thing.vx * -1;
-        }
-
-        return thing;
-    };
-
     // Animate
     var animation = window.setInterval(function () {
         desk.clear(ctx);
-        parts.map(function (part) {
-            var p = move(part);
+        parts.forEach(function (part) {
+            part.move();
             part.render(ctx);
-            return p;
         });
     }, 1000 / 40);
 
@@ -110,8 +88,8 @@ require([
                 } else {
                     animation = window.setInterval(function () {
                         desk.clear(ctx);
-                        parts.map(function (part) {
-                            var p = move(part);
+                        parts.forEach(function (part) {
+                            part.move();
                             part.render(ctx);
                             return p;
                         });

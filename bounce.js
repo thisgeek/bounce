@@ -9,19 +9,6 @@ require([
     inAndOut(document.querySelector('#instructions .first'));
   });
 
-  var input = (function () {
-    var div = document.createElement('div');
-    var input = document.createElement('input');
-    input.type = 'range';
-    input.min = 1;
-    input.max = 100;
-    input.value = 10;
-    input.step = 1;
-    div.appendChild(input);
-    document.body.appendChild(div);
-    return input;
-  }());
-
   var ctx = desk.init(window).context();
   var parts = [
     particle.create(10, 20, 12, 0, 10),
@@ -52,7 +39,7 @@ require([
 
   // Generate particles
   var generator = window.setInterval(function () {
-    var d = parseInt(input.value, 10);
+    var d = 1;
     parts.push(particle.create(10, Math.random() * 400, 12, 0, d));
     parts.push(particle.create(10, window.innerHeight - 20, 5, Math.random() * 43, d));
   }, 1000);
@@ -70,7 +57,7 @@ require([
           animation = window.setInterval(frame, 1000 / 40);
 
           generator = window.setInterval(function () {
-            var d = parseInt(input.value, 10);
+            var d = 1;
             parts.push(particle.create(10, Math.random() * 400, 12, 0, d));
             parts.push(particle.create(10, window.innerHeight - 20, 5, Math.random() * 43, d));
           }, 1000);
@@ -80,15 +67,15 @@ require([
     };
   }());
 
-  (function () {
-    input.onchange = function () {
+  window.bounceCtrl = {
+    setDiameter: function (value) {
       if (paused) { desk.clear(ctx); }
       parts.map(function (part) {
-        part.d = input.value;
+        part.d = value;
         part.render(ctx);
         return part;
       });
-    };
-  }());
+    }
+  };
 
 });

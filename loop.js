@@ -1,4 +1,4 @@
-define(['vendor/q.min'], function (Q) {
+define(['bower_components/q/q.min'], function (Q) {
     return function loop (callback, delay) {
         var deferred = Q.defer();
         setTimeout(function () {

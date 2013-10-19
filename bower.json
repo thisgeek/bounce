@@ -1,0 +1,23 @@
+{
+  "name": "bounce",
+  "main": "bounce.js",
+  "version": "0.1.0",
+  "homepage": "https://github.com/thisgeek/bounce",
+  "authors": [
+    "Christopher Joslyn <christopher.joslyn@gmail.com>"
+  ],
+  "description": "Imaginary physics.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~1.0.7",
+    "q": "0.8.2"
+  }
+}

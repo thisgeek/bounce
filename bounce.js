@@ -2,7 +2,7 @@ define([
   '_window'
 ], function (_window) {
 
-  return function (desk, ctx) {
+  return function (desk) {
     var bounceCtrl = {
       paused: true,
       diameter: 10,
@@ -33,19 +33,19 @@ define([
         this.paused = true;
       },
       setDiameter: function (value) {
-        if (this.paused) { desk.clear(ctx); }
+        if (this.paused) { desk.clear(); }
         this.diameter = value;
         this.particles.map(function (part) {
           part.d = value;
-          part.render(ctx);
+          part.render(desk.context());
           return part;
         });
       },
       updateFrame: function () {
-        desk.clear(ctx);
+        desk.clear();
         bounceCtrl.particles.map(function (part) {
           part.move();
-          part.render(ctx);
+          part.render(desk.context());
           return part;
         });
       }

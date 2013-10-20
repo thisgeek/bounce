@@ -1,23 +1,26 @@
 define([
-  '_window'
-], function (_window) {
+  '_document'
+], function (_document) {
   var canvas;
+  var context;
   var desk = {
-    init: function (win) {
-      canvas = win.document.createElement('canvas');
-      win.document.body.appendChild(canvas);
-      canvas.width = win.innerWidth;
-      canvas.height = win.innerHeight;
+    init: function (width, height, parent) {
+      parent = parent || _document.body;
+      canvas = _document.createElement('canvas');
+      parent.appendChild(canvas);
+      canvas.height = height;
+      canvas.width = width;
+      context = canvas.getContext('2d');
       return this;
     },
     canvas: function () {
       return canvas;
     },
     context: function () {
-      return canvas.getContext('2d');
+      return context;
     },
-    clear: function (ctx) {
-      ctx.clearRect(0, 0, _window.innerWidth, _window.innerHeight);
+    clear: function () {
+      context.clearRect(0, 0, canvas.width, canvas.height);
     }
   };
   return desk;

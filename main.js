@@ -5,14 +5,19 @@ require([
   'bounce',
   'desk',
   'particle',
-  'inAndOut',
   'keyPressRouter'
-], function (_window, _document, _math, bounce, desk, particle, inAndOut, keyPressRouter) {
+], function (_window, _document, _math, bounce, desk, particle, keyPressRouter) {
 
-  inAndOut(_document.querySelector('h1'))
-  .then(function () {
-    inAndOut(_document.querySelector('#instructions .first'));
-  });
+  _document.querySelector('h1').className = 'in';
+  _window.setTimeout(function () {
+    _document.querySelector('h1').className = 'out';
+  }, 10000);
+  _window.setTimeout(function () {
+    _document.querySelector('#instructions').className = 'in';
+  }, 15000);
+  _window.setTimeout(function () {
+    _document.querySelector('#instructions').className = 'out';
+  }, 20000);
 
   var ctx = desk.init(_window.innerWidth, _window.innerHeight).context();
 

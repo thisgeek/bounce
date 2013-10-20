@@ -17,7 +17,6 @@
     "tests"
   ],
   "dependencies": {
-    "requirejs": "~1.0.7",
-    "q": "0.8.2"
+    "requirejs": "~1.0.7"
   }
 }

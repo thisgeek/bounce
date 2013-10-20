@@ -33,21 +33,28 @@ require([
     paused: true,
     diameter: 10,
     frameRate: 1000 / 40,
-    pause: function () {
+    togglePlay: function () {
       if (!this.paused) {
-        _window.clearInterval(animation);
-        _window.clearInterval(generator);
-        this.paused = true;
+        this.pause();
       } else {
-        animation = _window.setInterval(bounceCtrl.updateFrame, this.frameRate);
-
-        generator = _window.setInterval(function () {
-          var d = bounceCtrl.diameter;
-          parts.push(particle.create(10, _math.random() * 400, 12, 0, d));
-          parts.push(particle.create(10, _window.innerHeight - 20, 5, _math.random() * 43, d));
-        }, 1000);
-        this.paused = false;
+        this.play();
       }
+    },
+    play: function () {
+      animation = _window.setInterval(bounceCtrl.updateFrame, this.frameRate);
+
+      generator = _window.setInterval(function () {
+        var d = bounceCtrl.diameter;
+        parts.push(particle.create(10, _math.random() * 400, 12, 0, d));
+        parts.push(particle.create(10, _window.innerHeight - 20, 5, _math.random() * 43, d));
+      }, 1000);
+
+      this.paused = false;
+    },
+    pause: function () {
+      _window.clearInterval(animation);
+      _window.clearInterval(generator);
+      this.paused = true;
     },
     setDiameter: function (value) {
       if (this.paused) { desk.clear(ctx); }
@@ -79,7 +86,7 @@ require([
   }, 1000);
 
   keyPressRouter({
-    '32': bounceCtrl.pause
+    '32': bounceCtrl.togglePlay
   });
 
   _window.bounceCtrl = bounceCtrl;

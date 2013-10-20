@@ -4,8 +4,9 @@ require([
   '_math',
   'desk',
   'particle',
-  'inAndOut'
-], function (_window, _document, _math, desk, particle, inAndOut) {
+  'inAndOut',
+  'keyPressRouter'
+], function (_window, _document, _math, desk, particle, inAndOut, keyPressRouter) {
 
   inAndOut(_document.querySelector('h1'))
   .then(function () {
@@ -28,57 +29,57 @@ require([
   ctx.strokeStyle = lineargradient;
   ctx.lineWidth = 3;
 
-  var frame = function () {
-    desk.clear(ctx);
-    parts.map(function (part) {
-      part.move();
-      part.render(ctx);
-      return part;
-    });
-  };
+  var bounceCtrl = {
+    paused: true,
+    diameter: 10,
+    pause: function () {
+      if (!this.paused) {
+        _window.clearInterval(animation);
+        _window.clearInterval(generator);
+        this.paused = true;
+      } else {
+        animation = _window.setInterval(bounceCtrl.updateFrame, 1000 / 40);
 
-  // Animate
-  var animation = _window.setInterval(frame, 1000 / 40);
-
-  // Generate particles
-  var generator = _window.setInterval(function () {
-    var d = 1;
-    parts.push(particle.create(10, _math.random() * 400, 12, 0, d));
-    parts.push(particle.create(10, _window.innerHeight - 20, 5, _math.random() * 43, d));
-  }, 1000);
-
-  var paused = false;
-  (function () {
-    _document.onkeypress = function (e) {
-      var charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
-      if (charCode === 32) {
-        if (!paused) {
-          _window.clearInterval(animation);
-          _window.clearInterval(generator);
-          paused = true;
-        } else {
-          animation = _window.setInterval(frame, 1000 / 40);
-
-          generator = _window.setInterval(function () {
-            var d = 1;
-            parts.push(particle.create(10, _math.random() * 400, 12, 0, d));
-            parts.push(particle.create(10, _window.innerHeight - 20, 5, _math.random() * 43, d));
-          }, 1000);
-          paused = false;
-        }
+        generator = _window.setInterval(function () {
+          var d = bounceCtrl.diameter;
+          parts.push(particle.create(10, _math.random() * 400, 12, 0, d));
+          parts.push(particle.create(10, _window.innerHeight - 20, 5, _math.random() * 43, d));
+        }, 1000);
+        this.paused = false;
       }
-    };
-  }());
-
-  _window.bounceCtrl = {
+    },
     setDiameter: function (value) {
-      if (paused) { desk.clear(ctx); }
+      if (this.paused) { desk.clear(ctx); }
+      this.diameter = value;
       parts.map(function (part) {
         part.d = value;
+        part.render(ctx);
+        return part;
+      });
+    },
+    updateFrame: function () {
+      desk.clear(ctx);
+      parts.map(function (part) {
+        part.move();
         part.render(ctx);
         return part;
       });
     }
   };
 
+  // Animate
+  var animation = _window.setInterval(bounceCtrl.updateFrame, 1000 / 40);
+
+  // Generate particles
+  var generator = _window.setInterval(function () {
+    var d = bounceCtrl.diameter;
+    parts.push(particle.create(10, _math.random() * 400, 12, 0, d));
+    parts.push(particle.create(10, _window.innerHeight - 20, 5, _math.random() * 43, d));
+  }, 1000);
+
+  keyPressRouter({
+    '32': bounceCtrl.pause
+  });
+
+  _window.bounceCtrl = bounceCtrl;
 });

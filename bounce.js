@@ -14,12 +14,6 @@ require([
   });
 
   var ctx = desk.init(_window).context();
-  var parts = [
-    particle.create(10, 20, 12, 0, 10),
-    particle.create(10, _window.innerHeight - 20, 10, 30, 10),
-    particle.create(10, _window.innerHeight - 20, 5, 40, 10),
-    particle.create(10, _window.innerHeight / 2, 10, 30, 10)
-  ];
 
   var lineargradient = ctx.createLinearGradient(0, 0, 0, _window.innerHeight);
   lineargradient.addColorStop(0, 'rgb(150,255,100)');
@@ -33,6 +27,7 @@ require([
     paused: true,
     diameter: 10,
     frameRate: 1000 / 40,
+    particles: [],
     togglePlay: function () {
       if (!this.paused) {
         this.pause();
@@ -41,25 +36,27 @@ require([
       }
     },
     play: function () {
-      animation = _window.setInterval(bounceCtrl.updateFrame, this.frameRate);
+      var self = this;
 
-      generator = _window.setInterval(function () {
+      this.animation = _window.setInterval(bounceCtrl.updateFrame, this.frameRate);
+
+      this.generator = _window.setInterval(function () {
         var d = bounceCtrl.diameter;
-        parts.push(particle.create(10, _math.random() * 400, 12, 0, d));
-        parts.push(particle.create(10, _window.innerHeight - 20, 5, _math.random() * 43, d));
+        self.particles.push(particle.create(10, _math.random() * 400, 12, 0, d));
+        self.particles.push(particle.create(10, _window.innerHeight - 20, 5, _math.random() * 43, d));
       }, 1000);
 
       this.paused = false;
     },
     pause: function () {
-      _window.clearInterval(animation);
-      _window.clearInterval(generator);
+      _window.clearInterval(this.animation);
+      _window.clearInterval(this.generator);
       this.paused = true;
     },
     setDiameter: function (value) {
       if (this.paused) { desk.clear(ctx); }
       this.diameter = value;
-      parts.map(function (part) {
+      this.particles.map(function (part) {
         part.d = value;
         part.render(ctx);
         return part;
@@ -67,7 +64,7 @@ require([
     },
     updateFrame: function () {
       desk.clear(ctx);
-      parts.map(function (part) {
+      bounceCtrl.particles.map(function (part) {
         part.move();
         part.render(ctx);
         return part;
@@ -75,19 +72,21 @@ require([
     }
   };
 
-  // Animate
-  var animation = _window.setInterval(bounceCtrl.updateFrame, bounceCtrl.frameRate);
-
-  // Generate particles
-  var generator = _window.setInterval(function () {
-    var d = bounceCtrl.diameter;
-    parts.push(particle.create(10, _math.random() * 400, 12, 0, d));
-    parts.push(particle.create(10, _window.innerHeight - 20, 5, _math.random() * 43, d));
-  }, 1000);
+  // Initialize
+  bounceCtrl.particles = [
+    particle.create(10, 20, 12, 0, 10),
+    particle.create(10, _window.innerHeight - 20, 10, 30, 10),
+    particle.create(10, _window.innerHeight - 20, 5, 40, 10),
+    particle.create(10, _window.innerHeight / 2, 10, 30, 10)
+  ];
 
   keyPressRouter({
-    '32': bounceCtrl.togglePlay
+    '32': function () {
+      bounceCtrl.togglePlay();
+    }
   });
+
+  bounceCtrl.play();
 
   _window.bounceCtrl = bounceCtrl;
 });

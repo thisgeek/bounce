@@ -1,12 +1,13 @@
 require([
   '_window',
   '_document',
+  '_math',
   'bounce',
   'desk',
   'particle',
   'inAndOut',
   'keyPressRouter'
-], function (_window, _document, bounce, desk, particle, inAndOut, keyPressRouter) {
+], function (_window, _document, _math, bounce, desk, particle, inAndOut, keyPressRouter) {
 
   inAndOut(_document.querySelector('h1'))
   .then(function () {
@@ -32,6 +33,12 @@ require([
     particle.create(10, _window.innerHeight - 20, 5, 40, 10),
     particle.create(10, _window.innerHeight / 2, 10, 30, 10)
   ];
+
+  bounceCtrl.onGenerate = function () {
+    var d = this.diameter;
+    this.particles.push(particle.create(10, _math.random() * 400, 12, 0, d));
+    this.particles.push(particle.create(10, _window.innerHeight - 20, 5, _math.random() * 43, d));
+  };
 
   keyPressRouter({
     '32': function () {

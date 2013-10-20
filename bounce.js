@@ -1,8 +1,6 @@
 define([
-  '_window',
-  '_math',
-  'particle'
-], function (_window, _math, particle) {
+  '_window'
+], function (_window) {
 
   return function (desk, ctx) {
     var bounceCtrl = {
@@ -10,6 +8,7 @@ define([
       diameter: 10,
       frameRate: 1000 / 40,
       particles: [],
+      onGenerate: function () {},
       togglePlay: function () {
         if (!this.paused) {
           this.pause();
@@ -23,9 +22,7 @@ define([
         this.animation = _window.setInterval(bounceCtrl.updateFrame, this.frameRate);
 
         this.generator = _window.setInterval(function () {
-          var d = bounceCtrl.diameter;
-          self.particles.push(particle.create(10, _math.random() * 400, 12, 0, d));
-          self.particles.push(particle.create(10, _window.innerHeight - 20, 5, _math.random() * 43, d));
+          self.onGenerate.call(self);
         }, 1000);
 
         this.paused = false;

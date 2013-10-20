@@ -1,8 +1,11 @@
-define(function () {
+define([
+  '_window',
+  '_math'
+], function (_window, _math) {
   var particle = {
     render: function (ctx) {
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.d, 0, Math.PI * 2, true);
+      ctx.arc(this.x, this.y, this.d, 0, _math.PI * 2, true);
       ctx.stroke();
       return this;
     },
@@ -16,11 +19,11 @@ define(function () {
       this.x += this.vx;
       this.y -= this.vy;
       // Ground
-      if (this.y > window.innerHeight - 20 - 10) {
+      if (this.y > _window.innerHeight - 20 - 10) {
         this.vy = this.vy * -1;
       }
       // Walls
-      if (this.x > window.innerWidth - 20 || this.x < 10) {
+      if (this.x > _window.innerWidth - 20 || this.x < 10) {
         this.vx = this.vx * -1;
       }
       return this;

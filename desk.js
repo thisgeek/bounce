@@ -1,11 +1,13 @@
-define(function () {
+define([
+  '_window'
+], function (_window) {
   var canvas;
   var desk = {
-    init: function (window) {
-      canvas = window.document.createElement('canvas');
-      window.document.body.appendChild(canvas);
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    init: function (win) {
+      canvas = win.document.createElement('canvas');
+      win.document.body.appendChild(canvas);
+      canvas.width = win.innerWidth;
+      canvas.height = win.innerHeight;
       return this;
     },
     canvas: function () {
@@ -15,7 +17,7 @@ define(function () {
       return canvas.getContext('2d');
     },
     clear: function (ctx) {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.clearRect(0, 0, _window.innerWidth, _window.innerHeight);
     }
   };
   return desk;

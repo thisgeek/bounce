@@ -1,6 +1,6 @@
 {
   "name": "bounce",
-  "main": "bounce.js",
+  "main": "main.js",
   "version": "0.1.0",
   "homepage": "https://github.com/thisgeek/bounce",
   "authors": [

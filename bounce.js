@@ -32,13 +32,14 @@ require([
   var bounceCtrl = {
     paused: true,
     diameter: 10,
+    frameRate: 1000 / 40,
     pause: function () {
       if (!this.paused) {
         _window.clearInterval(animation);
         _window.clearInterval(generator);
         this.paused = true;
       } else {
-        animation = _window.setInterval(bounceCtrl.updateFrame, 1000 / 40);
+        animation = _window.setInterval(bounceCtrl.updateFrame, this.frameRate);
 
         generator = _window.setInterval(function () {
           var d = bounceCtrl.diameter;
@@ -68,7 +69,7 @@ require([
   };
 
   // Animate
-  var animation = _window.setInterval(bounceCtrl.updateFrame, 1000 / 40);
+  var animation = _window.setInterval(bounceCtrl.updateFrame, bounceCtrl.frameRate);
 
   // Generate particles
   var generator = _window.setInterval(function () {

@@ -1,0 +1,30 @@
+{
+  "name": "bounce",
+  "main": "main.js",
+  "homepage": "https://github.com/thisgeek/bounce",
+  "authors": [
+    "Christopher Joslyn <christopher.joslyn@gmail.com>"
+  ],
+  "description": "Imaginary physics.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~1.0.7"
+  },
+  "_release": "afbdae9eca",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "afbdae9eca7f718a6d2cf91fb679d187ab7dcc03"
+  },
+  "_source": "https://github.com/thisgeek/bounce.git",
+  "_target": "master",
+  "_originalSource": "https://github.com/thisgeek/bounce.git"
+}

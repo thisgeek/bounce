@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <title>Bounce</title>
+    <link href='http://fonts.googleapis.com/css?family=Della+Respira' rel='stylesheet' type='text/css' />
+    <style type="text/css">
+      body {
+        font-family: "Della Respira", serif;
+        background: black;
+        overflow: hidden;
+        margin: 0;
+        color: white;
+      }
+      h1 {
+        text-align: center;
+        font-size: 4em;
+        background: transparent;
+        position: absolute;
+        width: 100%;
+      }
+      .out {
+        opacity: 0;
+        -webkit-transition: opacity 5s;
+      }
+      .in {
+        opacity: 1;
+        -webkit-transition: opacity 5s;
+      }
+      .range {
+        border: 2px solid white;
+        top: 100px;
+        position: absolute;
+        right: 100px;
+        -webkit-transform: rotate(270deg);
+      }
+      #instructions {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="out">Bounce</h1>
+    <ol id="instructions" class="out">
+      <li class="first">Hit the space bar to pause the animation</li>
+    </ol>
+    <a href="http://github.com/thisgeek/bounce"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+    <div class="range"><input type="range" min="1" max="100" step="1" onchange="bounceCtrl.setDiameter(this.value)"></div>
+    <script data-main="main.js" src="bower_components/requirejs/require.js"></script>
+  </body>
+</html>
